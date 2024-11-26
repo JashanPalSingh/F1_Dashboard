@@ -1,5 +1,5 @@
 addEventListener( "DOMContentLoaded", function(){
-
+console.log("script works.")
 
     function createSeasonList() {
     let list = document.createElement("select");
