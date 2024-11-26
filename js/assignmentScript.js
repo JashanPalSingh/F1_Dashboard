@@ -1,4 +1,7 @@
-function createSeasonList(){
+addEventListener( "DOMContentLoaded", function(){
+
+
+    function createSeasonList() {
     let list = document.createElement("select");
     let article = document.querySelector("#description");
     for (let i= 2024; i>2013; i--){
@@ -8,4 +11,8 @@ function createSeasonList(){
         list.appendChild(option);
     }
     article.appendChild(list);
-}
+};
+
+
+
+});
