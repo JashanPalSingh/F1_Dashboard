@@ -68,7 +68,7 @@ p{
     font-style: normal;
 }
 
-#HomepageLinks a{
+#HomepageLinks a, .homeSelect{
     background-color: red;
     margin: 10px;
     padding: 20px;
@@ -104,4 +104,13 @@ footer img{
 
 .hidden{
     display: none;
+}
+
+.seasonSelect{
+    background-color: black;
+    color: white;
+    border: 10px solid red;
+    border-radius: 10px;
+    width: 400px;
+    font-size: 18pt;
 }
