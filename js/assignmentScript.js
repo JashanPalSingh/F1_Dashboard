@@ -33,9 +33,8 @@ createSeasonList();
 //Function that loads the browse article after user executes the elect season event handler in the 
 //season list function.
 function loadBrowse(value){
-    let home = document.querySelector("#home");
     //Hide home pane
-    home.classList.toggle("hidden"); //This one not toggling
+    document.querySelector("#home").style.display = "none";
     let browse = document.querySelector("#browse");
     let para= document.createElement("p");
     para.textContent = "Browser content";
