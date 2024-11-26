@@ -1,0 +1,107 @@
+/* Dictates the general styling of the website
+Authors: Ishan Ishan, Jashan Pal Singh */
+body{
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    min-width: 1200px;
+    min-height:100vh;
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-family: "Orbitron", sans-serif; /* SOURCE: https://fonts.google.com/selection?classification=Display&stroke=Sans+Serif */
+    font-style: normal;
+}
+
+header{
+    width: 100%;
+    padding: 20px;
+    height: 50px;
+    margin: 0px;
+    background: linear-gradient(black, rgba(0,0,0,0)); /* reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images/Using_CSS_gradients */
+}
+header img{
+    display: block;
+    height: 30px;
+    position: absolute;
+    top: 22px;
+}
+
+header h1{
+    position: absolute;
+    left: 150px;
+    top: 0px;
+}
+
+header a{
+    color: white;
+    text-decoration: none;
+}
+nav ul{
+    position: absolute;
+    right: 2vw;
+    left: auto;
+    color: white;
+}
+
+nav ul li{
+    display: inline;
+    margin: 50px;
+    padding: 20px;
+}
+nav ul li a:hover{
+    color: red;
+}
+
+#home{
+    flex: 1;
+    width: 95%;
+    margin: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    max-width: 1920px;
+}
+
+p{
+    font-family: "Urbanist", sans-serif;
+    font-style: normal;
+}
+
+#HomepageLinks a{
+    background-color: red;
+    margin: 10px;
+    padding: 20px;
+    text-decoration: none;
+    color: white;
+}
+#HomepageLinks a:hover{
+    background-color: white;
+    color: black;
+}
+
+#resultsButton {
+    font-family: "Urbanist", sans-serif;
+    font-style: normal;
+    color: white;
+    margin: 10px;
+    background-color: rgba(0,0,0,0.5);
+}
+footer{
+    width: 100%;
+    padding: 20px;
+    height: 50px;
+    margin-top: auto;
+    background: linear-gradient(rgba(0,0,0,0), black); /* reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images/Using_CSS_gradients */
+}
+
+footer img{
+    display: block;
+    height: 60px;
+    float: left;
+    margin-right: 20px;
+}
+
+.hidden{
+    display: none;
+}
