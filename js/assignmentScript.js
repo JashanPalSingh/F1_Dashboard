@@ -43,7 +43,6 @@ function loadBrowse(season){
     //Hide home pane
     document.querySelector("#home").style.display = "none";
     let browse = document.querySelector("#browse");
-    let racesSection = document.querySelector("#races");
     let resultsData;
     let qualifyingData;
     let data = localStorage.getItem("races");
@@ -93,26 +92,50 @@ function displayRaces(data){
     thName.textContent = "Name";
     headingRow.appendChild(thName);
 
-    let thEmpty = document.createElement("th");
-    thEmpty.textContent = "  ";
-    headingRow.appendChild(thEmpty);
     raceTable.appendChild(headingRow);
 
     data.forEach(r => {
         let raceRow = document.createElement("tr");
         let raceRnd = document.createElement("td");
         let raceName = document.createElement("td");
-        let raceSelect = document.createElement("td");
         raceRnd.textContent = r.round;
         raceName.textContent = r.name;
-        raceSelect.textContent = "Select"; //Add event handler to generate results and qualifying.
         raceRow.appendChild(raceRnd);
         raceRow.appendChild(raceName);
-        raceRow.appendChild(raceSelect);
+        raceRow.addEventListener("click", () => displayRaceData(r));
         raceTable.appendChild(raceRow);
     })
     racesSection.appendChild(raceTable);
 };
+
+//Populate the orher side of browse to display the selected race information. Further call for 
+//displayResults and displayQualifying functions.
+function displayRaceData(race){
+    let raceInformation = document.querySelector("#raceInformation");
+    raceInformation.textContent =''; //Empty the raceInformation div everytime a race is selected and replace it with content below.
+    console.log(race);
+    let raceName = document.createElement("h1");
+    raceName.textContent = race.name;
+    let raceRound = document.createElement("h3");
+    raceRound.textContent = `Round: ${race.round}`;
+    let raceYear = document.createElement("h3");
+    raceYear.textContent = `Year: ${race.year}`;
+    let raceCircuit = document.createElement("h3");
+    raceCircuit.textContent = `Circuit: ${race.circuit.name}` //ADD Event Listner for circuit pop-up**********************************************
+    let raceDate = document.createElement("h3");
+    raceDate.textContent = `Date: ${race.date}`;
+    let raceLink = document.createElement("a");
+    raceLink.href = race.url;
+    raceLink.textContent = "View Race Information";
+
+    raceInformation.appendChild(raceName);
+    raceInformation.appendChild(raceRound);
+    raceInformation.appendChild(raceYear);
+    raceInformation.appendChild(raceCircuit);
+    raceInformation.appendChild(raceDate);
+    raceInformation.appendChild(raceLink);
+
+}
 
 
 });
