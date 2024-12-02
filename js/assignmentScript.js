@@ -8,7 +8,9 @@ addEventListener( "DOMContentLoaded", function(){
     resultURL = 'https://www.randyconnolly.com/funwebdev/3rd/api/f1/results.php?season=';
     qualifyURL = 'https://www.randyconnolly.com/funwebdev/3rd/api/f1/qualifying.php?season=';
 
-
+    let resultsData;
+    let qualifyingData;
+    let selectedSeason;
 
 
     // Creates the season dropdown and the submit button within the home article.
@@ -40,11 +42,11 @@ createSeasonList();
 //Function that loads the browse article after user executes the elect season event handler in the 
 //season list function.
 function loadBrowse(season){
+    //Set selected season (used further for results, qualifying, drivers and constructors).
+    selectedSeason = season;
     //Hide home pane
     document.querySelector("#home").style.display = "none";
     let browse = document.querySelector("#browse");
-    let resultsData;
-    let qualifyingData;
     let data = localStorage.getItem("races");
 
     if (! data){
@@ -77,7 +79,7 @@ function getSeasonData(season){
 
 // Takes the race data for a season and displays it as a table.
 function displayRaces(data){
-    console.log(data);
+    // console.log(data);
     let racesSection = document.querySelector("#races");
     let heading = document.createElement("h2");
     heading.textContent = "Races";
@@ -113,7 +115,7 @@ function displayRaces(data){
 function displayRaceData(race){
     let raceInformation = document.querySelector("#raceInformation");
     raceInformation.textContent =''; //Empty the raceInformation div everytime a race is selected and replace it with content below.
-    console.log(race);
+    // console.log(race);
     let raceName = document.createElement("h1");
     raceName.textContent = race.name;
     let raceRound = document.createElement("h3");
@@ -135,6 +137,29 @@ function displayRaceData(race){
     raceInformation.appendChild(raceDate);
     raceInformation.appendChild(raceLink);
 
+    displayResultsData(race);
+    displayQualifyingData(race);
+
+}
+
+function displayResultsData(race){
+    console.log(resultsData);
+}
+
+function displayQualifyingData(race){
+
+}
+
+function displayDriverPopUp(){
+
+}
+
+function displayConstructorPopUop(){
+
+}
+
+function displayCircuitPopUp(){
+    
 }
 
 
