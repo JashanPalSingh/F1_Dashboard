@@ -170,6 +170,20 @@ footer img{
     color: red;
 }
 
+fieldset{
+    border-color: red;
+    border-radius: 20px;
+    border-width: 10px;
+    border-style: solid;
+}
+.big{
+    font-size: 100px;
+}
+
+.constructorbig{
+    font-size: 50px;
+}
+
 /*NEW CSS Added below:-    */
 
 #browse{

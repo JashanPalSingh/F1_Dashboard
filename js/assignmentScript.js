@@ -4,9 +4,9 @@
 // Wait for the DOM content to load.
 addEventListener( "DOMContentLoaded", function(){
 
-    raceURL = 'https://www.randyconnolly.com/funwebdev/3rd/api/f1/races.php?season=';
-    resultURL = 'https://www.randyconnolly.com/funwebdev/3rd/api/f1/results.php?season=';
-    qualifyURL = 'https://www.randyconnolly.com/funwebdev/3rd/api/f1/qualifying.php?season=';
+    let raceURL = 'https://www.randyconnolly.com/funwebdev/3rd/api/f1/races.php?season=';
+    let resultURL = 'https://www.randyconnolly.com/funwebdev/3rd/api/f1/results.php?season=';
+    let qualifyURL = 'https://www.randyconnolly.com/funwebdev/3rd/api/f1/qualifying.php?season=';
 
     let resultsData;
     let qualifyingData;
@@ -47,7 +47,7 @@ function loadBrowse(season){
     //Hide home pane
     document.querySelector("#home").style.display = "none";
     let browse = document.querySelector("#browse");
-    let data = localStorage.getItem("races");
+    let data = localStorage.getItem(`races${season}`);
 
     if (! data){
         getSeasonData(season).then(data => {
@@ -55,13 +55,13 @@ function loadBrowse(season){
             resultsData = data[1];
             qualifyingData = data[2];
             //save in local storage
-            localStorage.setItem("races", JSON.stringify(data[0]));
-            localStorage.setItem("results", JSON.stringify(data[1]));
-            localStorage.setItem("qualifying", JSON.stringify(data[2]));
+            localStorage.setItem(`races${season}`, JSON.stringify(data[0]));
+            localStorage.setItem(`results${season}`, JSON.stringify(data[1]));
+            localStorage.setItem(`qualifying${season}`, JSON.stringify(data[2]));
         });
     } else {
-        resultsData = JSON.parse(localStorage.getItem("results"));
-        qualifyingData = JSON.parse(localStorage.getItem("qualifying"));
+        resultsData = JSON.parse(localStorage.getItem(`results${season}`));
+        qualifyingData = JSON.parse(localStorage.getItem(`qualifying${season}`));
         displayRaces(JSON.parse(data));
     }
     //display browse pane
@@ -116,8 +116,11 @@ function displayRaceData(race){
     let raceInformation = document.querySelector("#raceInformation");
     raceInformation.textContent =''; //Empty the raceInformation div everytime a race is selected and replace it with content below.
     // console.log(race);
-    let raceName = document.createElement("h1");
+    let fieldset = document.createElement("fieldset");
+
+    let raceName = document.createElement("legend");
     raceName.textContent = race.name;
+    raceName.className = "constructorbig";
     let raceRound = document.createElement("h3");
     raceRound.textContent = `Round: ${race.round}`;
     let raceYear = document.createElement("h3");
@@ -131,8 +134,8 @@ function displayRaceData(race){
     raceLink.textContent = "View Race Information";
     raceLink.className = "decoratedlink";
 
-    raceInformation.append(raceName, raceRound, raceYear, raceCircuit, raceDate, raceLink);
-
+    fieldset.append(raceName, raceRound, raceYear, raceCircuit, raceDate, raceLink);
+    raceInformation.appendChild(fieldset);
     displayQualifyingData(race);
     displayResultsData(race);
 
@@ -150,10 +153,12 @@ function displayResultsData(race){
 
     let resultDiv = document.querySelector("#result");
     resultDiv.textContent = "";
+    let fieldset = document.createElement("fieldset");
 
-    let heading = document.createElement("h1");
+    let heading = document.createElement("legend");
     heading.textContent = "Results";
-    resultDiv.appendChild(heading);
+    heading.className = "constructorbig";
+    fieldset.appendChild(heading);
     // Take top three drivers, sort them into order. This should work despite adding filters on the table below.
     let topThreePositions = filteredResults.filter((fr) => {return fr.position == 1 || fr.position == 2 || fr.position == 3});
     topThreePositions.sort( function (a,b){return a.position - b.position} );  //REFERENCE: https://www.w3schools.com/js/js_array_sort.asp
@@ -173,7 +178,7 @@ function displayResultsData(race){
         rankDiv.appendChild(rankHeading);
         topThreeDiv.appendChild(rankDiv);
     });
-    resultDiv.appendChild(topThreeDiv);
+    fieldset.appendChild(topThreeDiv);
 
     //Now we display all the results ins a table below the top 3.
     let resultTable = document.createElement("table");
@@ -210,7 +215,8 @@ function displayResultsData(race){
         resultTable.appendChild(resultRow);
     });
 
-    resultDiv.appendChild(resultTable);
+    fieldset.appendChild(resultTable);
+    resultDiv.appendChild(fieldset);
 
 };
 
@@ -224,10 +230,11 @@ function displayQualifyingData(race){
     console.log(filteredQualifying);
     let qualifyDiv = document.querySelector("#qualify");
     qualifyDiv.textContent = "";
-
-    let heading = document.createElement("h1");
+    let fieldset = document.createElement("fieldset");
+    let heading = document.createElement("legend");
     heading.textContent = "Qualifying";
-    qualifyDiv.appendChild(heading);
+    heading.className = "constructorbig";
+    fieldset.appendChild(heading);
 
     // Now we create the table
     let qualifyTable = document.createElement("table");
@@ -268,7 +275,8 @@ function displayQualifyingData(race){
         qualifyTable.appendChild(qualifyRow);
     })
 
-    qualifyDiv.appendChild(qualifyTable);
+    fieldset.appendChild(qualifyTable);
+    qualifyDiv.appendChild(fieldset);
 
 };
 
