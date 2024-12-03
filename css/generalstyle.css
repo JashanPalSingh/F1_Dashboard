@@ -1,5 +1,10 @@
 /* Dictates the general styling of the website
 Authors: Ishan Ishan, Jashan Pal Singh */
+
+/*
+Most of this CSS was diectly imported from assignment 1 to save designing time.
+Elements were given similar class names as Assignment 1 to make CSS work.
+*/
 body{
     display: flex;
     flex-direction: column;
@@ -113,4 +118,54 @@ footer img{
     border-radius: 10px;
     width: 400px;
     font-size: 18pt;
+}
+
+#top3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.rank{
+    background-color: red;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 10px;
+    margin: 10px;
+}
+.rank:hover{
+    color: black;
+}
+
+.decoratedlink{
+    background-color: red;
+    padding: 20px;
+    margin: 10px;
+    text-decoration: none;
+    color: white;
+}
+.decoratedlink:hover{
+    background-color: white;
+    color: black;
+}
+
+.interactiveTable{
+    width: 100%;
+    font-family: "Urbanist", sans-serif;
+    font-style: normal;
+    border: 0;
+}
+.interactiveTable th {
+    text-align: left;
+    background-color: red;
+}
+.interactiveTable tr:hover{
+    background-color: rgb(76, 76, 76);
+}
+
+.interactiveTable td{
+    color: white;
+    text-decoration: none;
+}
+.interactiveTable td:hover{
+    color: red;
 }
