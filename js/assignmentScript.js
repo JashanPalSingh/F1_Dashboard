@@ -126,7 +126,10 @@ function displayRaceData(race){
     let raceYear = document.createElement("h3");
     raceYear.textContent = `Year: ${race.year}`;
     let raceCircuit = document.createElement("h3");
-    raceCircuit.textContent = `Circuit: ${race.circuit.name}` //ADD Event Listner for circuit pop-up**********************************************
+    raceCircuit.textContent = `Circuit: ${race.circuit.name}`; //ADD Event Listner for circuit pop-up**********************************************
+
+    raceCircuit.addEventListener("click", () => displayCircuitPopUp(race));
+
     let raceDate = document.createElement("h3");
     raceDate.textContent = `Date: ${race.date}`;
     let raceLink = document.createElement("a");
@@ -288,7 +291,36 @@ function displayConstructorPopUop(){
 
 }
 
-function displayCircuitPopUp(){
+function displayCircuitPopUp(race){
+    let circuitPopUp = document.querySelector("#circuitPopUp");
+    circuitPopUp.textContent = "";
+    circuitPopUp.style.display= "block";
+    let fieldset = document.createElement("fieldset");
+    let legend = document.createElement("legend");
+    legend.className = "constructorbig";
+    legend.textContent = "Circuit Details";
+    fieldset.appendChild(legend);
+    console.log(race);
+
+    let circuitName = document.createElement("h2");
+    circuitName.textContent = `Name: ${race.circuit.name}`;
+    let circuitLocation = document.createElement("h2");
+    circuitLocation.textContent = `Location: ${race.circuit.location}`;
+    let circuitCountry = document.createElement("h2");
+    circuitCountry.textContent = `Country: ${race.circuit.country}`;
+    let circuitURL = document.createElement("a");
+    circuitURL.href = race.circuit.url;
+    circuitURL.className = "decoratedLink";
+    circuitURL.textContent = "View Circuit";
+    const br = document.createElement("br");
+
+    let closePopUp = document.createElement("a");
+    closePopUp.textContent = "Close";
+    closePopUp.className = "decoratedLink";
+    closePopUp.addEventListener("click", () => {circuitPopUp.style.display = "none"});
+
+    fieldset.append(circuitName, circuitLocation, circuitCountry, circuitURL, closePopUp);
+    circuitPopUp.appendChild(fieldset);
 
 }
 
