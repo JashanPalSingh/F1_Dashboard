@@ -85,6 +85,7 @@ function displayRaces(data){
     heading.textContent = "Races";
     racesSection.appendChild(heading);
     let raceTable = document.createElement("table");
+    raceTable.className = "interactiveTable";
     let headingRow = document.createElement("tr");
     let thRnd = document.createElement("th");
     thRnd.textContent = "Rnd";
@@ -102,8 +103,7 @@ function displayRaces(data){
         let raceName = document.createElement("td");
         raceRnd.textContent = r.round;
         raceName.textContent = r.name;
-        raceRow.appendChild(raceRnd);
-        raceRow.appendChild(raceName);
+        raceRow.append(raceRnd, raceName);
         raceRow.addEventListener("click", () => displayRaceData(r));
         raceTable.appendChild(raceRow);
     })
@@ -131,26 +131,22 @@ function displayRaceData(race){
     raceLink.textContent = "View Race Information";
     raceLink.className = "decoratedlink";
 
-    raceInformation.appendChild(raceName);
-    raceInformation.appendChild(raceRound);
-    raceInformation.appendChild(raceYear);
-    raceInformation.appendChild(raceCircuit);
-    raceInformation.appendChild(raceDate);
-    raceInformation.appendChild(raceLink);
+    raceInformation.append(raceName, raceRound, raceYear, raceCircuit, raceDate, raceLink);
 
     displayQualifyingData(race);
     displayResultsData(race);
 
 };
 
-// Display the result section for the selected race
+// Display the result section for the selected race.
+//This function displays the top three drivers as well as the results table.
 function displayResultsData(race){
     
     let selectedRace = race.id;
     let filteredResults = resultsData.filter( (r) => {
         return r.race.id == selectedRace;
     });
-    console.log(filteredResults);
+    // console.log(filteredResults);
 
     let resultDiv = document.querySelector("#result");
     resultDiv.textContent = "";
@@ -160,7 +156,7 @@ function displayResultsData(race){
     resultDiv.appendChild(heading);
     // Take top three drivers, sort them into order. This should work despite adding filters on the table below.
     let topThreePositions = filteredResults.filter((fr) => {return fr.position == 1 || fr.position == 2 || fr.position == 3});
-    topThreePositions.sort( function (a,b){return a.position - b.position} );                                                       //REFERENCE: https://www.w3schools.com/js/js_array_sort.asp
+    topThreePositions.sort( function (a,b){return a.position - b.position} );  //REFERENCE: https://www.w3schools.com/js/js_array_sort.asp
     //Test: using console.log: WORKS
     // console.log(`First: ${topThreePositions[0].driver.surname}, second: ${topThreePositions[1].driver.surname}, third: ${topThreePositions[2].driver.surname}`);
     
@@ -184,15 +180,15 @@ function displayResultsData(race){
     resultTable.className = "interactiveTable";
     let headingRow = document.createElement("tr");
     let thPosition = document.createElement("th");
-    thPosition.textContent = "Pos";
+    thPosition.textContent = "Pos"; //ADD: Event Listner to sort table below upon click**************************************************************************************************
     let thName = document.createElement("th");
-    thName.textContent = "Name";
+    thName.textContent = "Name";  //ADD: Event Listner to sort table below upon click**************************************************************************************************
     let thConst = document.createElement("th");
-    thConst.textContent = "Constructor";
+    thConst.textContent = "Constructor";  //ADD: Event Listner to sort table below upon click**************************************************************************************************
     let thLaps = document.createElement("th");
-    thLaps.textContent = "Laps";
+    thLaps.textContent = "Laps";  //ADD: Event Listner to sort table below upon click**************************************************************************************************
     let thPts = document.createElement("th");
-    thPts.textContent = "Pts";
+    thPts.textContent = "Pts";  //ADD: Event Listner to sort table below upon click**************************************************************************************************
 
     headingRow.append(thPosition, thName, thConst, thLaps, thPts);
     resultTable.appendChild(headingRow);
@@ -218,9 +214,63 @@ function displayResultsData(race){
 
 };
 
+//This function displays the qualifying table in a similar fashion as the results table.
 function displayQualifyingData(race){
+    let selectedRace = race.id;
+    let filteredQualifying = qualifyingData.filter((q) => {
+        return q.race.id == selectedRace;
+    });
 
-}
+    console.log(filteredQualifying);
+    let qualifyDiv = document.querySelector("#qualify");
+    qualifyDiv.textContent = "";
+
+    let heading = document.createElement("h1");
+    heading.textContent = "Qualifying";
+    qualifyDiv.appendChild(heading);
+
+    // Now we create the table
+    let qualifyTable = document.createElement("table");
+    qualifyTable.className = "interactiveTable";
+    let headingRow = document.createElement("tr");
+    let thPosition = document.createElement("th");
+    thPosition.textContent = "Pos"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    let thName = document.createElement("th");
+    thName.textContent = "Name"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    let thConst = document.createElement("th");
+    thConst.textContent = "Constructor"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    let thQ1 = document.createElement("th");
+    thQ1.textContent = "Q1"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    let thQ2 = document.createElement("th");
+    thQ2.textContent = "Q2"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    let thQ3 = document.createElement("th");
+    thQ3.textContent = "Q3"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    
+    headingRow.append(thPosition, thName, thConst, thQ1, thQ2, thQ3);
+    qualifyTable.appendChild(headingRow);
+
+    filteredQualifying.forEach((q) =>{
+        let qualifyRow = document.createElement("tr");
+        let qualifyPos = document.createElement("td");
+        qualifyPos.textContent = q.position;
+        let qualifyName = document.createElement("td");
+        qualifyName.textContent = `${q.driver.forename} ${q.driver.surname}`;
+        let qualifyConst = document.createElement("td");
+        qualifyConst.textContent = q.constructor.name;
+        let qualifyQ1 = document.createElement("td");
+        qualifyQ1.textContent = q.q1;
+        let qualifyQ2 = document.createElement("td");
+        qualifyQ2.textContent = q.q2;
+        let qualifyQ3 = document.createElement("td");
+        qualifyQ3.textContent = q.q3;
+
+        qualifyRow.append(qualifyPos, qualifyName, qualifyConst, qualifyQ1, qualifyQ2, qualifyQ3);
+        qualifyTable.appendChild(qualifyRow);
+    })
+
+    qualifyDiv.appendChild(qualifyTable);
+
+};
 
 function displayDriverPopUp(){
 
