@@ -54,13 +54,14 @@ function loadBrowse(season){
 
     if (! data){
         getSeasonData(season).then(data => {
-            displayRaces(data[0]);
             resultsData = data[1];
             qualifyingData = data[2];
             //save in local storage
             localStorage.setItem(`races${season}`, JSON.stringify(data[0]));
             localStorage.setItem(`results${season}`, JSON.stringify(data[1]));
             localStorage.setItem(`qualifying${season}`, JSON.stringify(data[2]));
+
+            displayRaces(data[0], resultsData, qualifyingData);
         });
     } else {
         resultsData = JSON.parse(localStorage.getItem(`results${season}`));
