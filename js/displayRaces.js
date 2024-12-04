@@ -230,24 +230,28 @@ function displayDriverPopUp(q, resultsData){
 
     fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/drivers.php?id=${q.driver.id}`).then(resp => resp.json()).then(data => {displayDriverBio(data)});
         function displayDriverBio(driver){
+            let driverImage = document.createElement("img");
+            driverImage.className = "dcImage"
+            driverImage.src = "https://placehold.co/300x100?text=Driver+Banner+Image";
+            let driverNumber = document.createElement("h2");
+            driverNumber.textContent = `#${driver.number}`;
+            driverNumber.className = "big";
             let driverName = document.createElement("h2");
-            driverName.textContent = `Name: ${driver.forename} ${driver.surname}`;
+            driverName.textContent = `${driver.forename} ${driver.surname}`;
             let driverDOB = document.createElement("h2");
-            driverDOB.textContent = `Date of Birth: ${driver.dob}`;
+            driverDOB.textContent = `Birth: ${driver.dob}`;
             let driverNationality = document.createElement("h2");
-            driverNationality.textContent = `Nationality: ${driver.nationality}`;
+            driverNationality.textContent = `${driver.nationality}`;
             let driverURL =  document.createElement("a");
             driverURL.href = driver.url;
             driverURL.textContent = "See Driver";
             driverURL.className = "decoratedLink";
-            let driverImage = document.createElement("img");
-            driverImage.src = "https://placehold.co/200x300?text=Driver+Image";
 
             let closePopUp = document.createElement("a");
             closePopUp.textContent = "Close";
             closePopUp.className = "decoratedLink";
             closePopUp.addEventListener("click", () => {DriverPopUp.style.display = "none"});
-            driverBio.append(driverName, driverDOB, driverNationality, driverImage, document.createElement("br"),document.createElement("br"), driverURL, closePopUp);
+            driverBio.append( driverImage, driverNumber, driverName, driverDOB, driverNationality, document.createElement("br"), driverURL, closePopUp, document.createElement("br"), document.createElement("br"));
     }
 
     function driverRes(q, resultsData){

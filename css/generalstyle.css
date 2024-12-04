@@ -1,4 +1,5 @@
 /* Dictates the general styling of the website
+Yeah, we know it's messy.. but it works so we don't touch it.
 Authors: Ishan Ishan, Jashan Pal Singh */
 
 /*
@@ -9,10 +10,10 @@ body{
     display: flex;
     flex-direction: column;
     margin: 0px;
-    min-width: 1200px;
-    min-height:100vh;
+    min-width: 1350px;
+    min-height:99vh;
     width: 100%;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     color: white;
     font-family: "Orbitron", sans-serif; /* SOURCE: https://fonts.google.com/selection?classification=Display&stroke=Sans+Serif */
     font-style: normal;
@@ -134,6 +135,7 @@ footer img{
 }
 .rank:hover{
     color: black;
+    background-color: white;
 }
 
 .decoratedlink{
@@ -146,6 +148,7 @@ footer img{
 .decoratedlink:hover{
     background-color: white;
     color: black;
+    cursor: pointer;
 }
 
 .interactiveTable{
@@ -157,6 +160,7 @@ footer img{
 .interactiveTable th {
     text-align: left;
     background-color: red;
+    border-radius: 5px;
 }
 .interactiveTable tr:hover{
     background-color: rgb(76, 76, 76);
@@ -165,6 +169,7 @@ footer img{
 .interactiveTable td{
     color: white;
     text-decoration: none;
+    border-radius: 5px;
 }
 .interactiveTable td:hover{
     color: red;
@@ -177,7 +182,9 @@ fieldset{
     border-style: solid;
 }
 .big{
-    font-size: 100px;
+    font-size: 150px;
+    font-weight: 1000;
+    line-height: 0;
 }
 
 .constructorbig{
@@ -217,17 +224,57 @@ fieldset{
 }
 #driverPopUp{
     width: 75%;
-    min-width: 1000px;
+    min-width: 1100px;
 }
 
 #driverPopUp fieldset {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 40% 60%;
 }
 #driversTable{
     color: black;
     width: 100%;
+    overflow: scroll;
+    height: 100%;
 }
 #driversTable th{
+    background-color: red;
+    color: white;
     text-align: left;
+    border-radius: 5px;
+}
+
+.dcImage{
+    width: 100%;
+    margin-bottom: -20px;
+}
+#browse section{
+    background-color: black;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#raceinformation fieldset{
+    background-image: url(../images/race.PNG); /*Image source: https://wallpaperscraft.com/wallpaper/formula_1_f1_formula_one_100190 */
+    background-size: cover;
+}
+#qualify fieldset,#qualify fieldset table, #result fieldset{
+    height: 100%;
+}
+#result fieldset{
+    background-image: url(../images/results.PNG); /*Image source: https://www.reddit.com/r/formula1/comments/16yn8kx/formula_1_eleven_drivers_have_stood_on_the_podium/ */
+    background-size: cover;
+}
+
+#qualify fieldset{
+    background-image: url(../images/qualify.PNG); /*Image source: https://www.reddit.com/r/formula1/comments/16yn8kx/formula_1_eleven_drivers_have_stood_on_the_podium/ */
+    background-size: cover;
+}
+
+
+#races {
+    background-image: url(../images/constructors.PNG); /*Image source: https://www.pinterest.com/pin/7107311905814245/ */
+    background-size: cover;
+    height: 80vh;
 }
