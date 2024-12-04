@@ -226,7 +226,9 @@ function displayDriverPopUp(q, resultsData){
     fieldset.appendChild(legend);
 
     let driverBio = document.createElement("div");
+    fieldset.appendChild(driverBio);
     let driverRecord = document.createElement("div");
+    
 
     fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/drivers.php?id=${q.driver.id}`).then(resp => resp.json()).then(data => {displayDriverBio(data)});
         function displayDriverBio(driver){
@@ -256,7 +258,8 @@ function displayDriverPopUp(q, resultsData){
             return d.driver.id == selectedDriver;
         });
         // console.log(filteredDriverResults);
-    
+        let driveTable = document.createElement("table");
+        driveTable.id = "driversTable";
         let headingRow = document.createElement("tr");
         let thRnd = document.createElement("th"); 
         thRnd.textContent = "Rnd";
@@ -268,10 +271,10 @@ function displayDriverPopUp(q, resultsData){
         thPts.textContent = "Points";  
     
         headingRow.append(thRnd, thName, thPos, thPts);
-        fieldset.append(headingRow);
+        driveTable.append(headingRow);
     
         filteredDriverResults.forEach((r) => {
-            console.log(r);
+            // console.log(r);
             let resultRow = document.createElement("tr");
             let resultRnd = document.createElement("td");
             resultRnd.textContent = r.race.round;
@@ -283,12 +286,12 @@ function displayDriverPopUp(q, resultsData){
             resultPts.textContent = r.points;
     
             resultRow.append(resultRnd, resultName, resultPos, resultPts);
-            fieldset.appendChild(resultRow);
+            driveTable.appendChild(resultRow);
         });
-
+        driverRecord.appendChild(driveTable);
+        fieldset.appendChild(driverRecord);
 }
 driverRes(q, resultsData);
-fieldset.append(driverBio, driverRecord);
 DriverPopUp.appendChild(fieldset);
 };
 
