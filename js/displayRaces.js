@@ -1,3 +1,6 @@
+let driverResultURL = "https://www.randyconnolly.com/funwebdev/3rd/api/f1/driverResults.php?driver=piastri&season=2023";
+
+
 // Takes the race data for a season and displays it as a table.
 function displayRaces(data, resultsData, qualifyingData){
     // console.log(data);
@@ -60,7 +63,7 @@ function displayRaceData(race, resultsData, qualifyingData){
 
     fieldset.append(raceName, raceRound, raceYear, raceCircuit, raceDate, raceLink);
     raceInformation.appendChild(fieldset);
-    displayQualifyingData(race, qualifyingData);
+    displayQualifyingData(race, qualifyingData, resultsData);
     displayResultsData(race, resultsData);
 
 };
@@ -123,6 +126,7 @@ function displayResultsData(race, resultsData){
     resultTable.appendChild(headingRow);
 
     filteredResults.forEach((r) => {
+        // console.log(r);
         let resultRow = document.createElement("tr");
         let resultPos = document.createElement("td");
         resultPos.textContent = r.position;
@@ -137,6 +141,8 @@ function displayResultsData(race, resultsData){
 
         resultRow.append(resultPos, resultName, resultCons, resultLaps, resultPts);
         resultTable.appendChild(resultRow);
+
+        resultName.addEventListener("click", () => displayDriverPopUp(r, resultsData));
     });
 
     fieldset.appendChild(resultTable);
@@ -145,13 +151,13 @@ function displayResultsData(race, resultsData){
 };
 
 //This function displays the qualifying table in a similar fashion as the results table.
-function displayQualifyingData(race, qualifyingData){
+function displayQualifyingData(race, qualifyingData, resultsData){
     let selectedRace = race.id;
     let filteredQualifying = qualifyingData.filter((q) => {
         return q.race.id == selectedRace;
     });
 
-    console.log(filteredQualifying);
+    // console.log(filteredQualifying);
     let qualifyDiv = document.querySelector("#qualify");
     qualifyDiv.textContent = "";
     let fieldset = document.createElement("fieldset");
@@ -186,6 +192,7 @@ function displayQualifyingData(race, qualifyingData){
         qualifyPos.textContent = q.position;
         let qualifyName = document.createElement("td");
         qualifyName.textContent = `${q.driver.forename} ${q.driver.surname}`;
+        qualifyName.addEventListener("click", () => displayDriverPopUp(q, resultsData));
         let qualifyConst = document.createElement("td");
         qualifyConst.textContent = q.constructor.name;
         let qualifyQ1 = document.createElement("td");
@@ -197,6 +204,7 @@ function displayQualifyingData(race, qualifyingData){
 
         qualifyRow.append(qualifyPos, qualifyName, qualifyConst, qualifyQ1, qualifyQ2, qualifyQ3);
         qualifyTable.appendChild(qualifyRow);
+        
     })
 
     fieldset.appendChild(qualifyTable);
@@ -204,9 +212,85 @@ function displayQualifyingData(race, qualifyingData){
 
 };
 
-function displayDriverPopUp(){
+
+function displayDriverPopUp(q, resultsData){
+    // console.log(q);
+    // console.log(resultsData);
+    let DriverPopUp = document.querySelector("#driverPopUp");
+    DriverPopUp.textContent = "";
+    DriverPopUp.style.display = "block";
+    let fieldset = document.createElement("fieldset");
+    let legend = document.createElement("legend");
+    legend.className = "constructorbig";
+    legend.textContent = "Driver Details";
+    fieldset.appendChild(legend);
+
+    let driverBio = document.createElement("div");
+    let driverRecord = document.createElement("div");
+
+    fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/drivers.php?id=${q.driver.id}`).then(resp => resp.json()).then(data => {displayDriverBio(data)});
+        function displayDriverBio(driver){
+            let driverName = document.createElement("h2");
+            driverName.textContent = `Name: ${driver.forename} ${driver.surname}`;
+            let driverDOB = document.createElement("h2");
+            driverDOB.textContent = `Date of Birth: ${driver.dob}`;
+            let driverNationality = document.createElement("h2");
+            driverNationality.textContent = `Nationality: ${driver.nationality}`;
+            let driverURL =  document.createElement("a");
+            driverURL.href = driver.url;
+            driverURL.textContent = "See Driver";
+            driverURL.className = "decoratedLink";
+            let driverImage = document.createElement("img");
+            driverImage.src = "https://placehold.co/200x300?text=Driver+Image";
+
+            let closePopUp = document.createElement("a");
+            closePopUp.textContent = "Close";
+            closePopUp.className = "decoratedLink";
+            closePopUp.addEventListener("click", () => {DriverPopUp.style.display = "none"});
+            driverBio.append(driverName, driverDOB, driverNationality, driverImage, document.createElement("br"),document.createElement("br"), driverURL, closePopUp);
+    }
+
+    function driverRes(q, resultsData){
+        let selectedDriver = q.driver.id;
+        let filteredDriverResults = resultsData.filter((d) => {
+            return d.driver.id == selectedDriver;
+        });
+        // console.log(filteredDriverResults);
+    
+        let headingRow = document.createElement("tr");
+        let thRnd = document.createElement("th"); 
+        thRnd.textContent = "Rnd";
+        let thName = document.createElement("th");
+        thName.textContent = "Name";   
+        let thPos = document.createElement("th");
+        thPos.textContent = "Pos";  
+        let thPts = document.createElement("th");
+        thPts.textContent = "Points";  
+    
+        headingRow.append(thRnd, thName, thPos, thPts);
+        fieldset.append(headingRow);
+    
+        filteredDriverResults.forEach((r) => {
+            console.log(r);
+            let resultRow = document.createElement("tr");
+            let resultRnd = document.createElement("td");
+            resultRnd.textContent = r.race.round;
+            let resultName = document.createElement("td");
+            resultName.textContent = r.race.name; 
+            let resultPos = document.createElement('td');
+            resultPos.textContent = r.position; 
+            let resultPts = document.createElement("td");
+            resultPts.textContent = r.points;
+    
+            resultRow.append(resultRnd, resultName, resultPos, resultPts);
+            fieldset.appendChild(resultRow);
+        });
 
 }
+driverRes(q, resultsData);
+fieldset.append(driverBio, driverRecord);
+DriverPopUp.appendChild(fieldset);
+};
 
 function displayConstructorPopUop(){
 
