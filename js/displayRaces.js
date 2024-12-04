@@ -1,3 +1,7 @@
+//import data
+import { displayDriverPopUp, displayConstructorPopUp, displayCircuitPopUp } from './popups.js';
+
+
 // Takes the race data for a season and displays it as a table.
 function displayRaces(data, resultsData, qualifyingData){
     // console.log(data);
@@ -141,6 +145,7 @@ function displayResultsData(race, resultsData){
         resultTable.appendChild(resultRow);
 
         resultName.addEventListener("click", () => displayDriverPopUp(r, resultsData));
+        resultCons.addEventListener("click", () => displayConstructorPopUp(r, resultsData));
     });
 
     fieldset.appendChild(resultTable);
@@ -193,6 +198,7 @@ function displayQualifyingData(race, qualifyingData, resultsData){
         qualifyName.addEventListener("click", () => displayDriverPopUp(q, resultsData));
         let qualifyConst = document.createElement("td");
         qualifyConst.textContent = q.constructor.name;
+        qualifyConst.addEventListener("click", () => displayConstructorPopUp(q, resultsData));
         let qualifyQ1 = document.createElement("td");
         qualifyQ1.textContent = q.q1;
         let qualifyQ2 = document.createElement("td");
@@ -293,8 +299,88 @@ driverRes(q, resultsData);
 DriverPopUp.appendChild(fieldset);
 };
 
-function displayConstructorPopUop(){
+function displayConstructorPopUp(q, resultsData){
+    let constPopUp = document.querySelector("#constructorPopUp");
+    constPopUp.textContent = "";
+    constPopUp.style.display = "block";
+    let fieldset = document.createElement("fieldset");
+    let legend = document.createElement("legend");
+    legend.className = "constructorbig";
+    legend.textContent = "Constructor Details";
+    fieldset.appendChild(legend);
 
+    let constBio = document.createElement("div");
+    constBio.setAttribute("id", "constBio");
+    fieldset.appendChild(constBio);
+    let constRecord = document.createElement("div");
+    constRecord.setAttribute("id", "recordTable");
+
+    fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/constructors.php?id=${q.constructor.id}`).then(resp => resp.json()).then(data => {displayConstructorBio(data)});
+        function displayConstructorBio(constructor){
+            let constName = document.createElement("h2");
+            constName.textContent = `Name: ${constructor.name}`;
+            let constNationality = document.createElement("h2");
+            constNationality.textContent = `Nationality: ${constructor.nationality}`;
+            let constURL =  document.createElement("a");
+            constURL.href = constructor.url;
+            constURL.textContent = "View Constructor";
+            constURL.className = "decoratedLink";
+            let constImage = document.createElement("img");
+            constImage.src = "https://placehold.co/300x300?text=Constructor+Image";
+
+            let closePopUp = document.createElement("a");
+            closePopUp.textContent = "Close";
+            closePopUp.className = "decoratedLink";
+            closePopUp.addEventListener("click", () => {constPopUp.style.display = "none"});
+            constBio.append(constName, constNationality, constImage, document.createElement("br"),document.createElement("br"), constURL, closePopUp);
+    }
+
+    function constRes(q, resultsData){
+        let selectedConst = q.constructor.id;
+        let filteredConstResults = resultsData.filter((c) => {
+            return c.constructor.id == selectedConst;
+        });
+        // console.log(filteredConstResults);
+        let constTable = document.createElement("table");
+        constTable.id = "constructorTable";
+        let headingRow = document.createElement("tr");
+        let thRnd = document.createElement("th"); 
+        thRnd.textContent = "Rnd";
+        let thName = document.createElement("th");
+        thName.textContent = "Name";
+        let thDriver = document.createElement("th");
+        thDriver.textContent = "Driver";   
+        let thPos = document.createElement("th");
+        thPos.textContent = "Pos";  
+        let thPts = document.createElement("th");
+        thPts.textContent = "Points";  
+    
+        headingRow.append(thRnd, thName, thDriver, thPos, thPts);
+        constTable.append(headingRow);
+    
+        filteredConstResults.forEach((r) => {
+            // console.log(r);
+            let resultRow = document.createElement("tr");
+            let resultRnd = document.createElement("td");
+            resultRnd.textContent = r.race.round;
+            let resultName = document.createElement("td");
+            resultName.textContent = r.race.name;
+            let driverName = document.createElement("td");
+            driverName.textContent = r.driver.forename + r.driver.surname;
+            let resultPos = document.createElement('td');
+            resultPos.textContent = r.position; 
+            let resultPts = document.createElement("td");
+            resultPts.textContent = r.points;
+
+            resultRow.append(resultRnd, resultName, driverName, resultPos, resultPts);
+            constTable.appendChild(resultRow);
+        });
+        constRecord.appendChild(constTable);
+        fieldset.appendChild(constRecord);
+    }
+
+    constRes(q, resultsData);
+    constPopUp.appendChild(fieldset);
 }
 
 function displayCircuitPopUp(race){
