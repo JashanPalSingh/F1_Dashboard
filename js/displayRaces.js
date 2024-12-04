@@ -1,5 +1,5 @@
 //import data
-import { displayDriverPopUp, displayConstructorPopUp, displayCircuitPopUp } from './popups.js';
+import { displayDriverPopUp, displayConstructorPopUp, displayCircuitPopUp, displayFavorites } from './popups.js';
 
 
 // Takes the race data for a season and displays it as a table.
@@ -51,7 +51,7 @@ function displayRaceData(race, resultsData, qualifyingData){
     let raceYear = document.createElement("h3");
     raceYear.textContent = `Year: ${race.year}`;
     let raceCircuit = document.createElement("h3");
-    raceCircuit.textContent = `Circuit: ${race.circuit.name}`; //ADD Event Listner for circuit pop-up**********************************************
+    raceCircuit.textContent = "Circuit:" + displayFavorites(`${race.circuit.name}`);
 
     raceCircuit.addEventListener("click", () => displayCircuitPopUp(race));
 
@@ -133,9 +133,9 @@ function displayResultsData(race, resultsData){
         let resultPos = document.createElement("td");
         resultPos.textContent = r.position;
         let resultName = document.createElement("td");
-        resultName.textContent = `${r.driver.forename} ${r.driver.surname}`; //ADD: Event Listner to driver pop-up***********************************************************************
+        resultName.textContent = displayFavorites(`${r.driver.forename} ${r.driver.surname}`); //ADD: Event Listner to driver pop-up***********************************************************************
         let resultCons = document.createElement('td');
-        resultCons.textContent = r.constructor.name; //ADD: Event Listner to constructor pop-up******************************************************************************************
+        resultCons.textContent = displayFavorites(`${r.constructor.name}`); //ADD: Event Listner to constructor pop-up******************************************************************************************
         let resultLaps = document.createElement("td");
         resultLaps.textContent = r.laps;
         let resultPts = document.createElement("td");
@@ -194,10 +194,10 @@ function displayQualifyingData(race, qualifyingData, resultsData){
         let qualifyPos = document.createElement("td");
         qualifyPos.textContent = q.position;
         let qualifyName = document.createElement("td");
-        qualifyName.textContent = `${q.driver.forename} ${q.driver.surname}`;
+        qualifyName.textContent = displayFavorites(`${q.driver.forename} ${q.driver.surname}`);
         qualifyName.addEventListener("click", () => displayDriverPopUp(q, resultsData));
         let qualifyConst = document.createElement("td");
-        qualifyConst.textContent = q.constructor.name;
+        qualifyConst.textContent = displayFavorites(`${q.constructor.name}`);
         qualifyConst.addEventListener("click", () => displayConstructorPopUp(q, resultsData));
         let qualifyQ1 = document.createElement("td");
         qualifyQ1.textContent = q.q1;

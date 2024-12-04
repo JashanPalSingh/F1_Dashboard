@@ -40,9 +40,9 @@ function displayDriverPopUp(q, resultsData){
             closePopUp.addEventListener("click", () => {DriverPopUp.style.display = "none"});
 
             let favPopUp = document.createElement("a");
-            favPopUp.textContent = "Add to Favorites";
+            favPopUp.textContent = "Add/Remove ♡";
             favPopUp.className = "decoratedLink";
-            favPopUp.addEventListener("click", () => addToFavorites());
+            favPopUp.addEventListener("click", () => addToFavorites(`${driver.forename} ${driver.surname}`));
 
             driverBio.append( driverImage, driverNumber, driverName, driverDOB, driverNationality, document.createElement("br"), driverURL, favPopUp, closePopUp, document.createElement("br"), document.createElement("br"));
     }
@@ -126,9 +126,9 @@ function displayConstructorPopUp(q, resultsData){
             closePopUp.addEventListener("click", () => {constPopUp.style.display = "none"});
 
             let favPopUp = document.createElement("a");
-            favPopUp.textContent = "Add to Favorites";
+            favPopUp.textContent = "Add/Remove ♡";
             favPopUp.className = "decoratedLink";
-            favPopUp.addEventListener("click", () => addToFavorites());
+            favPopUp.addEventListener("click", () => addToFavorites(`${constructor.name}`));
 
             constBio.append(constName, constNationality, constImage, document.createElement("br"),document.createElement("br"), constURL ,document.createElement("br"), document.createElement("br"), favPopUp, closePopUp);
     }
@@ -212,9 +212,9 @@ function displayCircuitPopUp(race){
     closePopUp.addEventListener("click", () => {circuitPopUp.style.display = "none"});
 
     let favPopUp = document.createElement("a");
-    favPopUp.textContent = "Add to Favorites";
+    favPopUp.textContent = "Add/Remove ♡";
     favPopUp.className = "decoratedLink";
-    favPopUp.addEventListener("click", () => addToFavorites());
+    favPopUp.addEventListener("click", () => addToFavorites(`${race.circuit.name}`));
 
     fieldset.append(circuitImage, circuitName, circuitLocation, circuitCountry, circuitURL, favPopUp, closePopUp, document.createElement("br"), document.createElement("br"));
     circuitPopUp.appendChild(fieldset);
@@ -232,10 +232,30 @@ function displayFavorites(text){
         return text;
     }
     else{
-        return (text + "🏎");
+        return (text + "♥️");
     }
     
 }
 
+function addToFavorites(text){
+    let nameFound = favourites.find((f) => {
+        return f == text;
+    });
+    if (! nameFound){
+        favourites.push(text);
+        displayFavorites(text);
+        alert(`${text} is added to favorites!`);
+    }
+    else{
+        let index = favourites.indexOf(text)
+        if (index !== -1) {
+            // Remove the element at the found index
+            favourites.splice(index, 1);
+        }
+        alert(`${text} is removed from favorites!`);
+    }
+
+}
+
 // Export the functions
-export { displayDriverPopUp, displayConstructorPopUp, displayCircuitPopUp };
+export { displayDriverPopUp, displayConstructorPopUp, displayCircuitPopUp, displayFavorites};
