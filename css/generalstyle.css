@@ -140,7 +140,7 @@ footer img{
 
 .decoratedlink{
     background-color: red;
-    padding: 10px;
+    padding: 5px;
     margin: 20px;
     text-decoration: none;
     color: white;
@@ -279,13 +279,21 @@ fieldset{
     height: 80vh;
 }
 
+#constructorPopUp{
+    width: 75%;
+    min-width: 1100px;
+}
 #constructorPopUp fieldset{
     display: grid;
     grid-template-columns: 40% 60%;
-    height: 600px;    
+    height: 650px;    
 }
 
 #recordTable{
+    overflow: scroll;
+}
+
+#constBio{
     overflow: scroll;
 }
 

@@ -109,7 +109,8 @@ function displayConstructorPopUp(q, resultsData){
     fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/constructors.php?id=${q.constructor.id}`).then(resp => resp.json()).then(data => {displayConstructorBio(data)});
         function displayConstructorBio(constructor){
             let constName = document.createElement("h2");
-            constName.textContent = `Name: ${constructor.name}`;
+            constName.textContent = `${constructor.name}`;
+            constName.className = "constructorbig";
             let constNationality = document.createElement("h2");
             constNationality.textContent = `Nationality: ${constructor.nationality}`;
             let constURL =  document.createElement("a");
@@ -117,7 +118,7 @@ function displayConstructorPopUp(q, resultsData){
             constURL.textContent = "View Constructor";
             constURL.className = "decoratedLink";
             let constImage = document.createElement("img");
-            constImage.src = "https://placehold.co/300x300?text=Constructor+Image";
+            constImage.src = "https://placehold.co/300x100?text=Constructor+Banner";
 
             let closePopUp = document.createElement("a");
             closePopUp.textContent = "Close";
@@ -129,7 +130,7 @@ function displayConstructorPopUp(q, resultsData){
             favPopUp.className = "decoratedLink";
             favPopUp.addEventListener("click", () => addToFavorites());
 
-            constBio.append(constName, constNationality, constImage, document.createElement("br"),document.createElement("br"), constURL , favPopUp, closePopUp);
+            constBio.append(constName, constNationality, constImage, document.createElement("br"),document.createElement("br"), constURL ,document.createElement("br"), document.createElement("br"), favPopUp, closePopUp);
     }
 
     function constRes(q, resultsData){
@@ -220,7 +221,19 @@ function displayCircuitPopUp(race){
 
 }
 
-function addToFavorites(){
+let favourites = [];
+
+function displayFavorites(text){
+    let nameFound = favourites.find((f) => {
+        return f == text;
+    });
+
+    if (! nameFound){
+        return text;
+    }
+    else{
+        return (text + "🏎");
+    }
     
 }
 
