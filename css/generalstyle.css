@@ -211,11 +211,14 @@ fieldset{
     border-radius: 20px;
 }
 
+#circuitPopUp fieldset img{
+    width: 100%;
+    height: auto;
+}
 #driverPopUp{
     width: 75%;
     min-width: 1000px;
 }
-
 
 #driverPopUp fieldset {
     display: grid;

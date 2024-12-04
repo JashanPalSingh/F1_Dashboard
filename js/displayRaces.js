@@ -308,6 +308,8 @@ function displayCircuitPopUp(race){
     fieldset.appendChild(legend);
     console.log(race);
 
+    let circuitImage = document.createElement("img");
+    circuitImage.src = "https://placehold.co/300x400?text=Circuit+Image";
     let circuitName = document.createElement("h2");
     circuitName.textContent = `Name: ${race.circuit.name}`;
     let circuitLocation = document.createElement("h2");
@@ -325,7 +327,7 @@ function displayCircuitPopUp(race){
     closePopUp.className = "decoratedLink";
     closePopUp.addEventListener("click", () => {circuitPopUp.style.display = "none"});
 
-    fieldset.append(circuitName, circuitLocation, circuitCountry, circuitURL, closePopUp);
+    fieldset.append(circuitImage, circuitName, circuitLocation, circuitCountry, circuitURL, closePopUp, document.createElement("br"), document.createElement("br"));
     circuitPopUp.appendChild(fieldset);
 
 }
