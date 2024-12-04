@@ -93,13 +93,14 @@ function displayResultsData(race, resultsData){
     topThreeDiv.id = 'top3';
 
     topThreePositions.forEach(p => {
-        let rankDiv = document.createElement("div");  //ADD: Event Handler to display the driver pop-up************************************************************************************8
+        let rankDiv = document.createElement("div");
         rankDiv.className = "rank";
         let rankHeading = document.createElement("h2");
         const rankLabels = ["I", "II", "III"];
         let rankLabel = rankLabels[p.position - 1];
         rankHeading.innerHTML = `<b><i>${rankLabel}</i><br>${p.driver.forename} ${p.driver.surname}</b>`;
         rankDiv.appendChild(rankHeading);
+        rankDiv.addEventListener("click", () => displayDriverPopUp(p, resultsData));
         topThreeDiv.appendChild(rankDiv);
     });
     fieldset.appendChild(topThreeDiv);
