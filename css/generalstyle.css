@@ -278,3 +278,26 @@ fieldset{
     background-size: cover;
     height: 80vh;
 }
+
+#constructorPopUp fieldset{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    height: 600px;    
+}
+
+#recordTable{
+    overflow: scroll;
+}
+
+#constBio img{
+    width: 100%;
+}
+
+#constructorTable{
+    color: black;
+    width: 100%;
+}
+
+#constructorTable th{
+    text-align: left;
+}
