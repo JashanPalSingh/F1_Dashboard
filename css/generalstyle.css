@@ -198,7 +198,7 @@ fieldset{
     width: 95%;
     margin: auto;
     padding: 20px;
-    display: grid;
+    display: none;
     grid-template-columns: 20% 80%;
     max-width: 1920px;
 }

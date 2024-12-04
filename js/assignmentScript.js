@@ -69,7 +69,7 @@ function loadBrowse(season){
         displayRaces(JSON.parse(data), resultsData, qualifyingData);
     }
     //display browse pane
-    browse.classList.toggle("hidden");
+    browse.style.display = "grid";
 };
 
 // Fetches all season data at once unsing Promise.all
