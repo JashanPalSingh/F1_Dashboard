@@ -1,6 +1,3 @@
-let driverResultURL = "https://www.randyconnolly.com/funwebdev/3rd/api/f1/driverResults.php?driver=piastri&season=2023";
-
-
 // Takes the race data for a season and displays it as a table.
 function displayRaces(data, resultsData, qualifyingData){
     // console.log(data);
