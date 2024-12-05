@@ -28,11 +28,11 @@ This Repository contains the code for Assignment #2 of COMP 3512 at Mount Royal 
 - sort.js: Implements the sorting functionality for race data, allowing users to sort by various fields.
 
 ## API's Used
-- /races.php?season=: Returns all the races for the specified season.
-- /results.php?season=:  Returns all the results for all the races in the season.
-- /qualifying.php?season=: Returns all the qualifying for all the races in the season.
-- /drivers.php?id=: Returns single driver specified by the passed driverId value.
-- /constructors.php?id=: Returns single constructor specified by the passed constructorId value.
+- https://www.randyconnolly.com/funwebdev/3rd/api/f1/races.php?season=: Returns all the races for the specified season.
+- https://www.randyconnolly.com/funwebdev/3rd/api/f1/results.php?season=:  Returns all the results for all the races in the season.
+- https://www.randyconnolly.com/funwebdev/3rd/api/f1/qualifying.php?season=: Returns all the qualifying for all the races in the season.
+- https://www.randyconnolly.com/funwebdev/3rd/api/f1/drivers.php?id=: Returns single driver specified by the passed driverId value.
+- https://www.randyconnolly.com/funwebdev/3rd/api/f1/constructors.php?id=: Returns single constructor specified by the passed constructorId value.
 
 ## Contact
 Jashan Pal Singh - [jsing785@mtroyal.ca](mailto:jsing785@mtroyal.ca) - [github.com/JashanPalSingh](https://github.com/JashanPalSingh)\

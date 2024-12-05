@@ -133,7 +133,7 @@ function displayResultsData(race, resultsData, qualifyingData){
     let thPosition = document.createElement("th");
     thPosition.textContent = filteredResults[0].position < filteredResults[1].position ? "Pos ▽" : "Pos △"; //Heading changes based on sort criteria, giving users a visual cue.
     thPosition.addEventListener("click", (e) => {
-        if(e.target && e.target.nodeName == "TH"){sortByPositionResults(race, filteredResults, resultsData)}});
+        if(e.target && e.target.nodeName == "TH"){sortByPositionResults("position", race, filteredResults, resultsData)}});
     let thName = document.createElement("th");
     thName.textContent = (filteredResults[0].driver.forename)<(filteredResults[1].driver.forename) ? "Name A-Z" : "Name Z-A"; 
     thName.addEventListener("click", (e) => {
@@ -143,9 +143,13 @@ function displayResultsData(race, resultsData, qualifyingData){
     thConst.addEventListener("click", (e) => {
         if(e.target && e.target.nodeName == "TH"){sortByConstructorResults(race, filteredResults ,resultsData)}});
     let thLaps = document.createElement("th");
-    thLaps.textContent = "Laps";                //Number of laps and points always the driver position, hence we did not deem it required to sort by laps or points.
+    thLaps.textContent = filteredResults[0].laps < filteredResults[19].laps ? "Laps ▽" : "Laps △"; //Number of laps and points always the driver position, hence we did not deem it required to sort by laps or points.
+    thLaps.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByPositionResults("laps", race, filteredResults, resultsData)}});
     let thPts = document.createElement("th");
-    thPts.textContent = "Pts";  
+    thPts.textContent = filteredResults[0].points < filteredResults[19].points ? "Pts ▽" : "Pts △";
+    thPts.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByPositionResults("points", race, filteredResults, resultsData)}});
 
     headingRow.append(thPosition, thName, thConst, thLaps, thPts);
     resultTable.appendChild(headingRow);

@@ -59,13 +59,13 @@ function sortByConstructorQualifying(race, qualifyingData, resultsData){
  * @param {Array} filteredResults 
  * @param {Array} resultsData 
  */
-function sortByPositionResults(race, filteredResults, resultsData){
-    if(filteredResults[0].position < filteredResults[1].position){
-        let reverseSortedResults = resultsData.sort(function (a,b){return b.position - a.position});
+function sortByPositionResults( text, race, filteredResults, resultsData){
+    if(filteredResults[0][text] < filteredResults[14][text]){
+        let reverseSortedResults = resultsData.sort(function (a,b){return b[text] - a[text]});
         displayResultsData(race, reverseSortedResults);
     }
     else{
-        let straightSortedResults = resultsData.sort(function (a,b){return a.position - b.position});
+        let straightSortedResults = resultsData.sort(function (a,b){return a[text] - b[text]});
         displayResultsData(race, straightSortedResults);
     }
 }
