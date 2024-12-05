@@ -121,7 +121,7 @@ function displayResultsData(race, resultsData, qualifyingData){
         let rankLabel = rankLabels[p.position - 1];
         rankHeading.innerHTML = `<b><i>${rankLabel}</i><br>${p.driver.forename} ${p.driver.surname}</b>`;
         rankDiv.appendChild(rankHeading);
-        rankDiv.addEventListener("click", () => displayDriverPopUp(p, resultsData, qualifyingData));
+        rankDiv.addEventListener("click", () => displayDriverPopUp(p, race, resultsData, qualifyingData));
         topThreeDiv.appendChild(rankDiv);
     });
     fieldset.appendChild(topThreeDiv);
