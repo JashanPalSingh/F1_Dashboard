@@ -1,3 +1,16 @@
+// This JavaScript file manages all our pop-ups displayed when a user clicks on a driver, constructor, or a circuit 
+// in the browse Pane. We also work with adding/removing an item from favourites.
+
+// @authors: Jashan Pal Singh, Ishan Ishan.
+
+
+/**
+ * This function displays the driver pop-up using the dialog element.
+ * it is passed a single results/qualifying element with driver id inside 
+ * along with the resultsData array to filter through for the driver.
+ * @param {quaifying} q 
+ * @param {Array} resultsData 
+ */
 //import data
 import {displayRaceData} from "./displayRaces.js";
 
@@ -17,12 +30,12 @@ function displayDriverPopUp(q, race, resultsData, qualifyingData){
     fieldset.appendChild(driverBio);
     let driverRecord = document.createElement("div");
     
-
+    // fetch driver's biodata from an external API
     fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/drivers.php?id=${q.driver.id}`).then(resp => resp.json()).then(data => {displayDriverBio(data)});
         function displayDriverBio(driver){
             let driverImage = document.createElement("img");
             driverImage.className = "dcImage"
-            driverImage.src = "https://placehold.co/300x100?text=Driver+Banner+Image";
+            driverImage.src = "https://placehold.co/300x100?text=Driver+Banner+Image"; // Used the assignment's recommended method for adding a placeholder image.
             let driverNumber = document.createElement("h2");
             driverNumber.textContent = `#${driver.number}`;
             driverNumber.className = "big";
@@ -50,12 +63,13 @@ function displayDriverPopUp(q, race, resultsData, qualifyingData){
             driverBio.append( driverImage, driverNumber, driverName, driverDOB, driverNationality, document.createElement("br"), driverURL, favPopUp, closePopUp, document.createElement("br"), document.createElement("br"));
     }
 
+    // Displays the driver's season stats for all races they participated in.
     function driverRes(q, resultsData){
         let selectedDriver = q.driver.id;
         let filteredDriverResults = resultsData.filter((d) => {
             return d.driver.id == selectedDriver;
         });
-        // console.log(filteredDriverResults);
+
         let driveTable = document.createElement("table");
         driveTable.id = "driversTable";
         let headingRow = document.createElement("tr");
@@ -72,7 +86,7 @@ function displayDriverPopUp(q, race, resultsData, qualifyingData){
         driveTable.append(headingRow);
     
         filteredDriverResults.forEach((r) => {
-            // console.log(r);
+            
             let resultRow = document.createElement("tr");
             let resultRnd = document.createElement("td");
             resultRnd.textContent = r.race.round;
@@ -109,6 +123,7 @@ function displayConstructorPopUp(q, race, resultsData, qualifyingData){
     let constRecord = document.createElement("div");
     constRecord.setAttribute("id", "recordTable");
 
+    // fetches for the constructor's biodata from an external API.
     fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/constructors.php?id=${q.constructor.id}`).then(resp => resp.json()).then(data => {displayConstructorBio(data)});
         function displayConstructorBio(constructor){
             let constName = document.createElement("h2");
@@ -121,7 +136,7 @@ function displayConstructorPopUp(q, race, resultsData, qualifyingData){
             constURL.textContent = "View Constructor";
             constURL.className = "decoratedLink";
             let constImage = document.createElement("img");
-            constImage.src = "https://placehold.co/300x100?text=Constructor+Banner";
+            constImage.src = "https://placehold.co/300x100?text=Constructor+Banner"; //Used the recommended method of displaying a placeholder image.
 
             let closePopUp = document.createElement("a");
             closePopUp.textContent = "Close";
@@ -133,15 +148,17 @@ function displayConstructorPopUp(q, race, resultsData, qualifyingData){
             favPopUp.className = "decoratedLink";
             favPopUp.addEventListener("click", () => addToFavorites(`${constructor.name}`));
 
+            // wierdly, we struggled with adding line breaks. This way was the easiest to implement.
             constBio.append(constName, constNationality, constImage, document.createElement("br"),document.createElement("br"), constURL ,document.createElement("br"), document.createElement("br"), favPopUp, closePopUp);
     }
 
+    // Displays the constructor's statistics for the selected season.
     function constRes(q, resultsData){
         let selectedConst = q.constructor.id;
         let filteredConstResults = resultsData.filter((c) => {
             return c.constructor.id == selectedConst;
         });
-        // console.log(filteredConstResults);
+        
         let constTable = document.createElement("table");
         constTable.id = "constructorTable";
         let headingRow = document.createElement("tr");
@@ -160,7 +177,7 @@ function displayConstructorPopUp(q, race, resultsData, qualifyingData){
         constTable.append(headingRow);
     
         filteredConstResults.forEach((r) => {
-            // console.log(r);
+            
             let resultRow = document.createElement("tr");
             let resultRnd = document.createElement("td");
             resultRnd.textContent = r.race.round;
@@ -255,5 +272,5 @@ function addToFavorites(text) {
     }
 }
 
-// Export the functions
+// Export the functions to be used by other JavaScript files.
 export { displayDriverPopUp, displayConstructorPopUp, displayCircuitPopUp, displayFavorites};

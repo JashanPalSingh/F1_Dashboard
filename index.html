@@ -1,3 +1,11 @@
+<!-- COMP 3512: Assignment-2: Single-page F1 Dashboard JavaScript Project.
+This the the single HTML page that will load content based on user selection.
+
+Live page can be found at: https://jashanpalsingh.github.io/COMP3512-Assignment2/
+
+@authors: Jashan Pal Singh, Ishan Ishan
+created for: Prof. Randy Connolly, COMP 3512:Web II: Web Application & Development at Mount Royal University. -->
+
 <html lang="en">
     <head>
         <title>F1 Dashboard</title>
@@ -9,10 +17,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> <!-- SOURCE: https://fonts.google.com/specimen/Urbanist -->
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
         
-        <script src="js/sort.js" type="module"></script>
-        <script src="js/popups.js" type="module"></script>
-        <script src="js/displayRaces.js" type="module"></script>
-        <script src="js/assignmentScript.js" type="module"></script>
+        <!-- Load all JavaScript files used as modules to run this page. -->
+
+        <script src="js/sort.js" type="module"></script>  <!--Contains all the sort functions used for sorting tables in the #browse pane depending on the criteria selected. -->
+        <script src="js/popups.js" type="module"></script> <!--Contains all the pop-ups for constructors, drivers, and circuits.-->
+        <script src="js/displayRaces.js" type="module"></script> <!--Contains functions to display races, qualifying, and results to the #browser pane.-->
+        <script src="js/assignmentScript.js" type="module"></script> <!--Contains functions to fetch all the required data from an external API.-->
     </head>
     <body>
         <header>
@@ -27,7 +37,7 @@
                     This site provides you with the information about the latest F1 seasons. You can browse the season's race results, constructor details, as well as the driver statistics.
                 </p>
                 <p>    
-                    This project was created by Ishan Ishan and Jashan Pal Singh as their Assignment 2 studying COMP3512 at the Mount Royal University taught by Professor Randy Conolly.
+                    This project was created by Ishan Ishan and Jashan Pal Singh as their Assignment 2 studying COMP3512 at the Mount Royal University taught by Professor Randy Connolly.
                 </p>
                 <p>
                     You can access our GitHub repository for this project below
@@ -67,7 +77,5 @@
             <a href='https://github.com/JashanPalSingh/COMP3512-Assignment2' id='viewrepo' target='_blank'><img src='images/ij.PNG' alt='An Ishan Jashan Project'></a>
             <p>Not officialy endorsed by the F1 or any of it's subsidiaries.<br> Ishan and Jashan &copy 2024.</p>
         </footer>
-        <!-- <script src="js/displayRaces.js"></script>
-        <script src="js/assignmentScript.js"></script> -->
     </body>
     </html>
