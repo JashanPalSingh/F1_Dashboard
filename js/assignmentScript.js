@@ -74,7 +74,7 @@ function loadBrowse(season){
             localStorage.setItem(`qualifying${season}`, JSON.stringify(data[2]));
 
             displayRaces(data[0], resultsData, qualifyingData);
-        });
+        }).catch(err => {console.error("error:" + err)});
     
     // Otherwise, just grab the data from localStorage and use it.
     } else {
@@ -92,9 +92,9 @@ function loadBrowse(season){
  * @returns {Promise}
  */
 function getSeasonData(season){
-    let racesList = fetch(raceURL + season).then(resp => resp.json());
-    let resultsList = fetch(resultURL + season).then(resp => resp.json());
-    let qualifyingList = fetch(qualifyURL + season).then(resp => resp.json());
+    let racesList = fetch(raceURL + season).then(resp => {if (resp.ok){ return resp.json()}else{throw new Error("Problem fetching races")}});
+    let resultsList = fetch(resultURL + season).then(resp => {if (resp.ok){ return resp.json()}else{throw new Error("Problem fetching results")}});
+    let qualifyingList = fetch(qualifyURL + season).then(resp => {if (resp.ok){ return resp.json()}else{throw new Error("Problem fetching qualifying")}});
     return Promise.all([racesList, resultsList, qualifyingList]);
 };
 

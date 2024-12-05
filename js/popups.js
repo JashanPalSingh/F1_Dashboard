@@ -31,7 +31,9 @@ function displayDriverPopUp(q, race, resultsData, qualifyingData){
     let driverRecord = document.createElement("div");
     
     // fetch driver's biodata from an external API
-    fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/drivers.php?id=${q.driver.id}`).then(resp => resp.json()).then(data => {displayDriverBio(data)});
+    fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/drivers.php?id=${q.driver.id}`)
+    .then(resp => {if (resp.ok){ return resp.json()}else{throw new Error("Problem fetching driver bio")}}).then(data => {displayDriverBio(data)})
+    .catch(err => {console.error("error:" + err)});
         function displayDriverBio(driver){
             let driverImage = document.createElement("img");
             driverImage.className = "dcImage"
@@ -124,7 +126,9 @@ function displayConstructorPopUp(q, race, resultsData, qualifyingData){
     constRecord.setAttribute("id", "recordTable");
 
     // fetches for the constructor's biodata from an external API.
-    fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/constructors.php?id=${q.constructor.id}`).then(resp => resp.json()).then(data => {displayConstructorBio(data)});
+    fetch(`https://www.randyconnolly.com/funwebdev/3rd/api/f1/constructors.php?id=${q.constructor.id}`)
+    .then(resp => {if (resp.ok){ return resp.json()}else{throw new Error("Problem fetching constructor bio")}}).then(data => {displayConstructorBio(data)})
+    .catch(err => {console.error("error:" + err)});
         function displayConstructorBio(constructor){
             let constName = document.createElement("h2");
             constName.textContent = `${constructor.name}`;
@@ -210,7 +214,7 @@ function displayCircuitPopUp(race, resultsData, qualifyingData){
     legend.className = "constructorbig";
     legend.textContent = "Circuit Details";
     fieldset.appendChild(legend);
-    console.log(race);
+
 
     let circuitImage = document.createElement("img");
     circuitImage.src = "https://placehold.co/300x400?text=Circuit+Image";
