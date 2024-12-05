@@ -1,5 +1,6 @@
 //import data
 import { displayDriverPopUp, displayConstructorPopUp, displayCircuitPopUp, displayFavorites } from './popups.js';
+import { sortByPositionQualifying, sortByNameQualifying, sortByConstructorQualifying, sortByPositionResults, sortByNameResults, sortByConstructorResults } from './sort.js';
 
 
 // Takes the race data for a season and displays it as a table.
@@ -51,7 +52,7 @@ function displayRaceData(race, resultsData, qualifyingData){
     let raceYear = document.createElement("h3");
     raceYear.textContent = `Year: ${race.year}`;
     let raceCircuit = document.createElement("h3");
-    raceCircuit.textContent = "Circuit:" + displayFavorites(`${race.circuit.name}`);
+    raceCircuit.textContent = "Circuit: " + displayFavorites(`${race.circuit.name}`);
 
     raceCircuit.addEventListener("click", () => displayCircuitPopUp(race));
 
@@ -114,11 +115,17 @@ function displayResultsData(race, resultsData){
     resultTable.className = "interactiveTable";
     let headingRow = document.createElement("tr");
     let thPosition = document.createElement("th");
-    thPosition.textContent = "Pos"; //ADD: Event Listner to sort table below upon click**************************************************************************************************
+    thPosition.textContent = filteredResults[0].position < filteredResults[1].position ? "Pos ▽" : "Pos △"; //ADD: Event Listner to sort table below upon click**************************************************************************************************
+    thPosition.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByPositionResults(race, filteredResults, resultsData)}});
     let thName = document.createElement("th");
-    thName.textContent = "Name";  //ADD: Event Listner to sort table below upon click**************************************************************************************************
+    thName.textContent = (filteredResults[0].driver.forename)<(filteredResults[1].driver.forename) ? "Name A-Z" : "Name Z-A";  //ADD: Event Listner to sort table below upon click**************************************************************************************************
+    thName.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByNameResults(race, filteredResults ,resultsData)}});
     let thConst = document.createElement("th");
-    thConst.textContent = "Constructor";  //ADD: Event Listner to sort table below upon click**************************************************************************************************
+    thConst.textContent = (filteredResults[0].constructor.name)<(filteredResults[15].constructor.name) ? "Constructor A-Z" : "Constructor Z-A";;  //ADD: Event Listner to sort table below upon click**************************************************************************************************
+    thConst.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByConstructorResults(race, filteredResults ,resultsData)}});
     let thLaps = document.createElement("th");
     thLaps.textContent = "Laps";  //ADD: Event Listner to sort table below upon click**************************************************************************************************
     let thPts = document.createElement("th");
@@ -174,11 +181,17 @@ function displayQualifyingData(race, qualifyingData, resultsData){
     qualifyTable.className = "interactiveTable";
     let headingRow = document.createElement("tr");
     let thPosition = document.createElement("th");
-    thPosition.textContent = "Pos"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    thPosition.textContent =  filteredQualifying[0].position < filteredQualifying[1].position ? "Pos ▽" : "Pos △"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    thPosition.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByPositionQualifying(race, filteredQualifying, resultsData)}});
     let thName = document.createElement("th");
-    thName.textContent = "Name"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    thName.textContent =  (filteredQualifying[0].driver.forename)<(filteredQualifying[1].driver.forename) ? "Name A-Z" : "Name Z-A"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    thName.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByNameQualifying(race, filteredQualifying ,resultsData)}});
     let thConst = document.createElement("th");
-    thConst.textContent = "Constructor"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    thConst.textContent =  (filteredQualifying[0].constructor.name)<(filteredQualifying[15].constructor.name) ? "Constructor A-Z" : "Constructor Z-A"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    thConst.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByConstructorQualifying(race, filteredQualifying ,resultsData)}});
     let thQ1 = document.createElement("th");
     thQ1.textContent = "Q1"; //ADD: Event Listner to sort table below upon click********************************************************************************
     let thQ2 = document.createElement("th");
@@ -216,4 +229,4 @@ function displayQualifyingData(race, qualifyingData, resultsData){
 
 };
 
-export {displayRaces};
+export {displayRaces, displayQualifyingData, displayResultsData};
