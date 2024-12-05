@@ -1,6 +1,6 @@
 //import data
 import { displayDriverPopUp, displayConstructorPopUp, displayCircuitPopUp, displayFavorites } from './popups.js';
-import { sortByPositionQualifying, sortByNameQualifying, sortByConstructorQualifying, sortByPositionResults, sortByNameResults, sortByConstructorResults } from './sort.js';
+import { sortByQQualifying, sortByPositionQualifying, sortByNameQualifying, sortByConstructorQualifying, sortByPositionResults, sortByNameResults, sortByConstructorResults } from './sort.js';
 
 
 // Takes the race data for a season and displays it as a table.
@@ -78,7 +78,7 @@ function displayResultsData(race, resultsData){
     let filteredResults = resultsData.filter( (r) => {
         return r.race.id == selectedRace;
     });
-    // console.log(filteredResults);
+
 
     let resultDiv = document.querySelector("#result");
     resultDiv.textContent = "";
@@ -91,8 +91,7 @@ function displayResultsData(race, resultsData){
     // Take top three drivers, sort them into order. This should work despite adding filters on the table below.
     let topThreePositions = filteredResults.filter((fr) => {return fr.position == 1 || fr.position == 2 || fr.position == 3});
     topThreePositions.sort( function (a,b){return a.position - b.position} );  //REFERENCE: https://www.w3schools.com/js/js_array_sort.asp
-    //Test: using console.log: WORKS
-    // console.log(`First: ${topThreePositions[0].driver.surname}, second: ${topThreePositions[1].driver.surname}, third: ${topThreePositions[2].driver.surname}`);
+
     
     let topThreeDiv = document.createElement("div");
     topThreeDiv.id = 'top3';
@@ -135,7 +134,7 @@ function displayResultsData(race, resultsData){
     resultTable.appendChild(headingRow);
 
     filteredResults.forEach((r) => {
-        // console.log(r);
+
         let resultRow = document.createElement("tr");
         let resultPos = document.createElement("td");
         resultPos.textContent = r.position;
@@ -193,12 +192,18 @@ function displayQualifyingData(race, qualifyingData, resultsData){
     thConst.addEventListener("click", (e) => {
         if(e.target && e.target.nodeName == "TH"){sortByConstructorQualifying(race, filteredQualifying ,resultsData)}});
     let thQ1 = document.createElement("th");
-    thQ1.textContent = "Q1"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    thQ1.textContent = (filteredQualifying[0].q1)<(filteredQualifying[1].q1) ? "Q1 ▽" : "Q1 △";
+    thQ1.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByQQualifying( 1 , race, filteredQualifying ,resultsData)}});
     let thQ2 = document.createElement("th");
-    thQ2.textContent = "Q2"; //ADD: Event Listner to sort table below upon click********************************************************************************
+    thQ2.textContent = (filteredQualifying[0].q2)<(filteredQualifying[15].q2) ? "Q2 ▽" : "Q2 △";
+    thQ2.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByQQualifying( 2 , race, filteredQualifying ,resultsData)}});
     let thQ3 = document.createElement("th");
-    thQ3.textContent = "Q3"; //ADD: Event Listner to sort table below upon click********************************************************************************
-    
+    thQ3.textContent = (filteredQualifying[0].q3)<(filteredQualifying[15].q3) ? "Q3 ▽" : "Q3 △";//ADD: Event Listner to sort table below upon click********************************************************************************
+    thQ3.addEventListener("click", (e) => {
+        if(e.target && e.target.nodeName == "TH"){sortByQQualifying( 3 , race, filteredQualifying ,resultsData)}});
+
     headingRow.append(thPosition, thName, thConst, thQ1, thQ2, thQ3);
     qualifyTable.appendChild(headingRow);
 

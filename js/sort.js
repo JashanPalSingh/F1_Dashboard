@@ -67,4 +67,17 @@ function sortByConstructorResults(race, filteredResults, resultsData){
     }
 }
 
-export{sortByPositionQualifying, sortByNameQualifying, sortByConstructorQualifying, sortByPositionResults, sortByNameResults, sortByConstructorResults};
+
+function sortByQQualifying(num, race, qualifyingData, resultsData){
+    let qnumber = `q${num}`;
+    if(qualifyingData[0][qnumber] < qualifyingData[1][qnumber]){
+        let reverseSortedQualifying = qualifyingData.sort(function (a,b){return (b[qnumber]).localeCompare(a[qnumber])});
+        displayQualifyingData(race, reverseSortedQualifying, resultsData);
+    }
+    else{
+        let straightSortedQualifying = qualifyingData.sort(function (a,b){return (a[qnumber]).localeCompare(b[qnumber])});
+        displayQualifyingData(race, straightSortedQualifying, resultsData);
+    }
+}
+
+export{sortByQQualifying, sortByPositionQualifying, sortByNameQualifying, sortByConstructorQualifying, sortByPositionResults, sortByNameResults, sortByConstructorResults};
