@@ -54,7 +54,7 @@ function displayRaceData(race, resultsData, qualifyingData){
     let raceCircuit = document.createElement("h3");
     raceCircuit.textContent = "Circuit: " + displayFavorites(`${race.circuit.name}`);
 
-    raceCircuit.addEventListener("click", () => displayCircuitPopUp(race));
+    raceCircuit.addEventListener("click", () => displayCircuitPopUp(race, qualifyingData, resultsData));
 
     let raceDate = document.createElement("h3");
     raceDate.textContent = `Date: ${race.date}`;
@@ -66,13 +66,13 @@ function displayRaceData(race, resultsData, qualifyingData){
     fieldset.append(raceName, raceRound, raceYear, raceCircuit, raceDate, raceLink);
     raceInformation.appendChild(fieldset);
     displayQualifyingData(race, qualifyingData, resultsData);
-    displayResultsData(race, resultsData);
+    displayResultsData(race, resultsData, qualifyingData);
 
 };
 
 // Display the result section for the selected race.
 //This function displays the top three drivers as well as the results table.
-function displayResultsData(race, resultsData){
+function displayResultsData(race, resultsData, qualifyingData){
     
     let selectedRace = race.id;
     let filteredResults = resultsData.filter( (r) => {
@@ -104,7 +104,7 @@ function displayResultsData(race, resultsData){
         let rankLabel = rankLabels[p.position - 1];
         rankHeading.innerHTML = `<b><i>${rankLabel}</i><br>${p.driver.forename} ${p.driver.surname}</b>`;
         rankDiv.appendChild(rankHeading);
-        rankDiv.addEventListener("click", () => displayDriverPopUp(p, resultsData));
+        rankDiv.addEventListener("click", () => displayDriverPopUp(p, resultsData, qualifyingData));
         topThreeDiv.appendChild(rankDiv);
     });
     fieldset.appendChild(topThreeDiv);
@@ -150,8 +150,8 @@ function displayResultsData(race, resultsData){
         resultRow.append(resultPos, resultName, resultCons, resultLaps, resultPts);
         resultTable.appendChild(resultRow);
 
-        resultName.addEventListener("click", () => displayDriverPopUp(r, resultsData));
-        resultCons.addEventListener("click", () => displayConstructorPopUp(r, resultsData));
+        resultName.addEventListener("click", () => displayDriverPopUp(r, race, resultsData, qualifyingData));
+        resultCons.addEventListener("click", () => displayConstructorPopUp(r, race, resultsData, qualifyingData));
     });
 
     fieldset.appendChild(resultTable);
@@ -213,10 +213,10 @@ function displayQualifyingData(race, qualifyingData, resultsData){
         qualifyPos.textContent = q.position;
         let qualifyName = document.createElement("td");
         qualifyName.textContent = displayFavorites(`${q.driver.forename} ${q.driver.surname}`);
-        qualifyName.addEventListener("click", () => displayDriverPopUp(q, resultsData));
+        qualifyName.addEventListener("click", () => displayDriverPopUp(q, race, resultsData, qualifyingData));
         let qualifyConst = document.createElement("td");
         qualifyConst.textContent = displayFavorites(`${q.constructor.name}`);
-        qualifyConst.addEventListener("click", () => displayConstructorPopUp(q, resultsData));
+        qualifyConst.addEventListener("click", () => displayConstructorPopUp(q, race, resultsData, qualifyingData));
         let qualifyQ1 = document.createElement("td");
         qualifyQ1.textContent = q.q1;
         let qualifyQ2 = document.createElement("td");
@@ -234,4 +234,4 @@ function displayQualifyingData(race, qualifyingData, resultsData){
 
 };
 
-export {displayRaces, displayQualifyingData, displayResultsData};
+export {displayRaceData, displayRaces, displayQualifyingData, displayResultsData};

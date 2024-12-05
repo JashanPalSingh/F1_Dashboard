@@ -1,4 +1,7 @@
-function displayDriverPopUp(q, resultsData){
+//import data
+import {displayRaceData} from "./displayRaces.js";
+
+function displayDriverPopUp(q, race, resultsData, qualifyingData){
     // console.log(q);
     // console.log(resultsData);
     let DriverPopUp = document.querySelector("#driverPopUp");
@@ -37,7 +40,7 @@ function displayDriverPopUp(q, resultsData){
             let closePopUp = document.createElement("a");
             closePopUp.textContent = "Close";
             closePopUp.className = "decoratedLink";
-            closePopUp.addEventListener("click", () => {DriverPopUp.style.display = "none"});
+            closePopUp.addEventListener("click", () => {DriverPopUp.style.display = "none", displayRaceData(race, resultsData, qualifyingData)});
 
             let favPopUp = document.createElement("a");
             favPopUp.textContent = "Add/Remove ♡";
@@ -90,7 +93,7 @@ driverRes(q, resultsData);
 DriverPopUp.appendChild(fieldset);
 };
 
-function displayConstructorPopUp(q, resultsData){
+function displayConstructorPopUp(q, race, resultsData, qualifyingData){
     let constPopUp = document.querySelector("#constructorPopUp");
     constPopUp.textContent = "";
     constPopUp.style.display = "block";
@@ -123,7 +126,7 @@ function displayConstructorPopUp(q, resultsData){
             let closePopUp = document.createElement("a");
             closePopUp.textContent = "Close";
             closePopUp.className = "decoratedLink";
-            closePopUp.addEventListener("click", () => {constPopUp.style.display = "none"});
+            closePopUp.addEventListener("click", () => {constPopUp.style.display = "none", displayRaceData(race, resultsData, qualifyingData)});
 
             let favPopUp = document.createElement("a");
             favPopUp.textContent = "Add/Remove ♡";
@@ -181,7 +184,7 @@ function displayConstructorPopUp(q, resultsData){
     constPopUp.appendChild(fieldset);
 }
 
-function displayCircuitPopUp(race){
+function displayCircuitPopUp(race, resultsData, qualifyingData){
     let circuitPopUp = document.querySelector("#circuitPopUp");
     circuitPopUp.textContent = "";
     circuitPopUp.style.display= "block";
@@ -209,7 +212,7 @@ function displayCircuitPopUp(race){
     let closePopUp = document.createElement("a");
     closePopUp.textContent = "Close";
     closePopUp.className = "decoratedLink";
-    closePopUp.addEventListener("click", () => {circuitPopUp.style.display = "none"});
+    closePopUp.addEventListener("click", () => {circuitPopUp.style.display = "none", displayRaceData(race, qualifyingData, resultsData)});
 
     let favPopUp = document.createElement("a");
     favPopUp.textContent = "Add/Remove ♡";
@@ -221,40 +224,35 @@ function displayCircuitPopUp(race){
 
 }
 
-let favourites = [];
 
-function displayFavorites(text){
-    let nameFound = favourites.find((f) => {
-        return f == text;
-    });
+function displayFavorites(text) {
+    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    let nameFound = favourites.find((f) => f == text);
 
-    if (! nameFound){
+    if (!nameFound) {
         return text;
+    } else {
+        return text + " ♥️";  
     }
-    else{
-        return (text + "♥️");
-    }
-    
 }
 
-function addToFavorites(text){
-    let nameFound = favourites.find((f) => {
-        return f == text;
-    });
-    if (! nameFound){
+function addToFavorites(text) {
+    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    let nameFound = favourites.find((f) => f == text);
+
+    if (!nameFound) {
         favourites.push(text);
+        localStorage.setItem('favourites', JSON.stringify(favourites));
         displayFavorites(text);
         alert(`${text} is added to favorites!`);
-    }
-    else{
-        let index = favourites.indexOf(text)
+    } else {
+        let index = favourites.indexOf(text);
         if (index !== -1) {
-            // Remove the element at the found index
             favourites.splice(index, 1);
         }
+        localStorage.setItem('favourites', JSON.stringify(favourites));
         alert(`${text} is removed from favorites!`);
     }
-
 }
 
 // Export the functions
