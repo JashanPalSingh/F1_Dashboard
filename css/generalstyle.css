@@ -196,6 +196,7 @@ fieldset{
 #raceResults{
     display: grid;
     grid-template-columns: 50% 50%;
+    height: 90%;
 }
 
 #raceInformation{
@@ -266,7 +267,7 @@ fieldset{
 #races {
     background-image: url(../images/constructors.PNG); /*Image source: https://www.pinterest.com/pin/7107311905814245/ */
     background-size: cover;
-    min-height: 80vh;
+    min-height: 96.5%;
 }
 
 #constructorPopUp{
